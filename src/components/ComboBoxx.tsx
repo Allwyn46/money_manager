@@ -9,12 +9,13 @@ import {
 
 type ComboboxParams = {
   items: string[]
+  placholdertext: string
 }
 
-export function ComboBoxx({ items }: ComboboxParams) {  
+export function ComboBoxx({ items, placholdertext }: ComboboxParams) {
   return (
     <Combobox items={items}>
-      <ComboboxInput placeholder="Select a category" className="py-4" />
+      <ComboboxInput placeholder={placholdertext} className="py-4" />
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>

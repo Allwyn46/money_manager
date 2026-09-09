@@ -13,7 +13,6 @@ const AddExpense = () => {
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState("")
 
-
   return (
     <div className="mt-5">
       <form>
@@ -24,7 +23,7 @@ const AddExpense = () => {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Category</Label>
-            <ComboBoxx items={categories} />
+            <ComboBoxx items={categories} placholdertext="Choose Category" />
           </div>
         </div>
         <div className="mt-5 grid gap-2">
@@ -49,9 +48,9 @@ const AddExpense = () => {
 
         <div className="mt-5 grid gap-2">
           <div className="flex items-center">
-            <Label htmlFor="amount">Amount</Label>
+            <Label htmlFor="account">Account</Label>
           </div>
-          <ComboBoxx items={Accounts} />
+          <ComboBoxx items={Accounts} placholdertext="Choose Account" />
         </div>
 
         <div className="mt-5 grid gap-2">
