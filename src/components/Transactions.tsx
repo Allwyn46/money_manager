@@ -1,10 +1,8 @@
 import TransactionTable from "./TransactionTable"
 import {
   Card,
-  CardAction,
   CardContent,
   CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -14,16 +12,14 @@ const Transactions = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-          <CardAction>Card Action</CardAction>
+          <CardTitle>Transactions</CardTitle>
+          <CardDescription>
+            Track spending, set budgets, and manage your money smarter
+          </CardDescription>
         </CardHeader>
         <CardContent>
           <TransactionTable />
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
     </div>
   )
