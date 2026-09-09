@@ -2,6 +2,7 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DatePicker } from "./DatePicker"
+import { ComboBoxx } from "./ComboBoxx"
 
 const AddExpense = () => {
   return (
@@ -12,8 +13,12 @@ const AddExpense = () => {
             <Label htmlFor="email">Date</Label>
             <DatePicker />
           </div>
+          <div className="grid gap-2">
+            <Label htmlFor="email">Category</Label>
+            <ComboBoxx />
+          </div>
         </div>
-        <div className="grid gap-2 mt-5">
+        <div className="mt-5 grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="password">Password</Label>
             <a
