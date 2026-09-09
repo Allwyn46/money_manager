@@ -10,7 +10,11 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover"
 
-export function DatePicker() {
+type datePickerParams = {
+  widthInput: string
+}
+
+export function DatePicker({ widthInput }: datePickerParams) {
   const [date, setDate] = React.useState<Date>()
 
   return (
@@ -20,7 +24,7 @@ export function DatePicker() {
           <Button
             variant={"outline"}
             data-empty={!date}
-            className="w-48 justify-between text-left font-normal data-[empty=true]:text-muted-foreground py-4"
+            className={`${widthInput} justify-between py-4 text-left font-normal data-[empty=true]:text-muted-foreground`}
           >
             {date ? format(date, "PPP") : <span>Pick a date</span>}
             <ChevronDownIcon data-icon="inline-end" />

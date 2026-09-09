@@ -19,7 +19,7 @@ const AddExpense = () => {
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
             <Label htmlFor="email">Date</Label>
-            <DatePicker />
+            <DatePicker widthInput="w-48"/>
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Category</Label>
