@@ -20,7 +20,7 @@ export function DatePicker() {
           <Button
             variant={"outline"}
             data-empty={!date}
-            className="w-48 justify-between text-left font-normal data-[empty=true]:text-muted-foreground py-5"
+            className="w-48 justify-between text-left font-normal data-[empty=true]:text-muted-foreground py-4"
           >
             {date ? format(date, "PPP") : <span>Pick a date</span>}
             <ChevronDownIcon data-icon="inline-end" />

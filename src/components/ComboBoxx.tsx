@@ -7,18 +7,14 @@ import {
   ComboboxList,
 } from "@/components/ui/combobox"
 
-const categories = [
-  "Food",
-  "Transport",
-  "Household",
-  "Clothes",
-  "Education",
-] as const
+type ComboboxParams = {
+  items: string[]
+}
 
-export function ComboBoxx() {
+export function ComboBoxx({ items }: ComboboxParams) {  
   return (
-    <Combobox items={categories}>
-      <ComboboxInput placeholder="Select a category" className="py-5" />
+    <Combobox items={items}>
+      <ComboboxInput placeholder="Select a category" className="py-4" />
       <ComboboxContent>
         <ComboboxEmpty>No items found.</ComboboxEmpty>
         <ComboboxList>

@@ -3,8 +3,17 @@ import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { DatePicker } from "./DatePicker"
 import { ComboBoxx } from "./ComboBoxx"
+import { useState } from "react"
+
+const categories = ["Food", "Transport", "Household", "Clothes", "Education"]
+
+const Accounts = ["Cash", "Card"]
 
 const AddExpense = () => {
+  const [amount, setAmount] = useState(0)
+  const [note, setNote] = useState("")
+
+
   return (
     <div className="mt-5">
       <form>
@@ -15,28 +24,59 @@ const AddExpense = () => {
           </div>
           <div className="grid gap-2">
             <Label htmlFor="email">Category</Label>
-            <ComboBoxx />
+            <ComboBoxx items={categories} />
           </div>
         </div>
         <div className="mt-5 grid gap-2">
           <div className="flex items-center">
-            <Label htmlFor="password">Password</Label>
-            <a
-              href="#"
-              className="ml-auto inline-block text-sm underline-offset-4 hover:underline"
-            >
-              Forgot your password?
-            </a>
+            <Label htmlFor="amount">Amount</Label>
           </div>
-          <Input id="password" type="password" required />
+          <Input
+            id="amount"
+            placeholder="Enter Amount"
+            type="text"
+            inputMode="numeric"
+            pattern="[0-9]*"
+            required
+            className="py-4"
+            value={amount}
+            onChange={(e) => {
+              const value = Number(e.target.value.replace(/[^0-9]/g, ""))
+              setAmount(value)
+            }}
+          />
+        </div>
+
+        <div className="mt-5 grid gap-2">
+          <div className="flex items-center">
+            <Label htmlFor="amount">Amount</Label>
+          </div>
+          <ComboBoxx items={Accounts} />
+        </div>
+
+        <div className="mt-5 grid gap-2">
+          <div className="flex items-center">
+            <Label htmlFor="note">Note</Label>
+          </div>
+          <Input
+            id="amount"
+            placeholder="Note"
+            type="text"
+            required
+            className="py-4"
+            value={note}
+            onChange={(e) => {
+              setNote(e.target.value)
+            }}
+          />
+        </div>
+
+        <div className="mt-5">
+          <Button type="submit" className="w-full p-5">
+            Save
+          </Button>
         </div>
       </form>
-
-      <div className="mt-5">
-        <Button type="submit" className="w-full p-5">
-          Save
-        </Button>
-      </div>
     </div>
   )
 }
