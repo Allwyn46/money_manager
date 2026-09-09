@@ -1,68 +1,27 @@
-import {
-  Card,
-  CardAction,
-  CardContent,
-  CardDescription,
-  CardFooter,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card"
-import {
-  Field,
-  FieldContent,
-  FieldDescription,
-  FieldError,
-  FieldGroup,
-  FieldLabel,
-  FieldLegend,
-  FieldSeparator,
-  FieldSet,
-  FieldTitle,
-} from "@/components/ui/field"
-import { Input } from "@/components/ui/input"
-import { Switch } from "@/components/ui/switch"
-
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 
 const AddTransaction = () => {
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Card Title</CardTitle>
-          <CardDescription>Card Description</CardDescription>
-          <CardAction>Card Action</CardAction>
+          <CardTitle>Add Transaction</CardTitle>
         </CardHeader>
         <CardContent>
-          <FieldSet>
-            <FieldLegend>Profile</FieldLegend>
-            <FieldDescription>
-              This appears on invoices and emails.
-            </FieldDescription>
-            <FieldGroup>
-              <Field>
-                <FieldLabel htmlFor="name">Full name</FieldLabel>
-                <Input id="name" autoComplete="off" placeholder="Evil Rabbit" />
-                <FieldDescription>
-                  This appears on invoices and emails.
-                </FieldDescription>
-              </Field>
-              <Field>
-                <FieldLabel htmlFor="username">Username</FieldLabel>
-                <Input id="username" autoComplete="off" aria-invalid />
-                <FieldError>Choose another username.</FieldError>
-              </Field>
-              <Field orientation="horizontal">
-                <Switch id="newsletter" />
-                <FieldLabel htmlFor="newsletter">
-                  Subscribe to the newsletter
-                </FieldLabel>
-              </Field>
-            </FieldGroup>
-          </FieldSet>
+          <Tabs defaultValue="expense" className="w-100">
+            <TabsList>
+              <TabsTrigger value="expense">Expense</TabsTrigger>
+              <TabsTrigger value="income">Income</TabsTrigger>
+              <TabsTrigger value="self">Self Transfer</TabsTrigger>
+            </TabsList>
+            <TabsContent value="expense">
+              Make changes to your account here.
+            </TabsContent>
+            <TabsContent value="income">Change your password here.</TabsContent>
+            <TabsContent value="self">Change your password here.</TabsContent>
+          </Tabs>
         </CardContent>
-        <CardFooter>
-          <p>Card Footer</p>
-        </CardFooter>
       </Card>
     </div>
   )
