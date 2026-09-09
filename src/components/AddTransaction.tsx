@@ -1,25 +1,32 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
+import AddExpense from "./AddExpense"
+import AddIncome from "./AddIncome"
+import AddSelfTransfer from "./AddSelfTransfer"
 
 const AddTransaction = () => {
   return (
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Add Transaction</CardTitle>
+          <CardTitle className="text-center">Add Transaction</CardTitle>
         </CardHeader>
-        <CardContent>
-          <Tabs defaultValue="expense" className="w-100">
+        <CardContent className="text-center">
+          <Tabs defaultValue="expense">
             <TabsList>
               <TabsTrigger value="expense">Expense</TabsTrigger>
               <TabsTrigger value="income">Income</TabsTrigger>
               <TabsTrigger value="self">Self Transfer</TabsTrigger>
             </TabsList>
             <TabsContent value="expense">
-              Make changes to your account here.
+              <AddExpense />
             </TabsContent>
-            <TabsContent value="income">Change your password here.</TabsContent>
-            <TabsContent value="self">Change your password here.</TabsContent>
+            <TabsContent value="income">
+              <AddIncome />
+            </TabsContent>
+            <TabsContent value="self">
+              <AddSelfTransfer />
+            </TabsContent>
           </Tabs>
         </CardContent>
       </Card>
