@@ -1,4 +1,4 @@
-import TransactionTable from "./TransactionTable"
+import TransactionTable from "./transactions/TransactionTable"
 import {
   Card,
   CardContent,

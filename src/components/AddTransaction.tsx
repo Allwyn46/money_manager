@@ -9,9 +9,9 @@ const AddTransaction = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-center">Add Transaction</CardTitle>
+          <CardTitle className="text-2xl font-semibold mb-3">Add Transaction</CardTitle>
         </CardHeader>
-        <CardContent className="text-center">
+        <CardContent className="">
           <Tabs defaultValue="expense">
             <TabsList>
               <TabsTrigger value="expense">Expense</TabsTrigger>
