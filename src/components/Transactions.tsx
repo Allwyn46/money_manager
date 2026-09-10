@@ -12,7 +12,7 @@ const Transactions = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle>Transactions</CardTitle>
+          <CardTitle className="text-xl font-semibold">Transactions</CardTitle>
           <CardDescription>
             Track spending, set budgets, and manage your money smarter
           </CardDescription>

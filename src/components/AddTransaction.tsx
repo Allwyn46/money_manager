@@ -9,7 +9,7 @@ const AddTransaction = () => {
     <div>
       <Card>
         <CardHeader>
-          <CardTitle className="text-2xl font-semibold mb-3">Add Transaction</CardTitle>
+          <CardTitle className="text-xl font-semibold">Add Transaction</CardTitle>
         </CardHeader>
         <CardContent className="">
           <Tabs defaultValue="expense">

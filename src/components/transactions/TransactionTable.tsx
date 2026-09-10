@@ -46,11 +46,24 @@ async function getData(): Promise<Payment[]> {
   return [
     {
       id: "728ed52f",
+      date: "2026-09-01",
+      note: "Grocery shopping",
       amount: 100,
+      category: "Food",
+      account: "Checking",
       status: "pending",
       email: "m@example.com",
     },
-    // ...
+    {
+      id: "489e1d42",
+      date: "2026-09-03",
+      note: "Electricity bill",
+      amount: 125,
+      category: "Utilities",
+      account: "Savings",
+      status: "success",
+      email: "example@gmail.com",
+    }
   ]
 }
 
