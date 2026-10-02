@@ -4,26 +4,29 @@ import { Label } from "@/components/ui/label"
 import { DatePicker } from "./DatePicker"
 import { ComboBoxx } from "./ComboBoxx"
 import { useState } from "react"
-
-const categories = ["Food", "Transport", "Household", "Clothes", "Education"]
+import { useCategories } from "@/hooks/useCategories"
 
 const Accounts = ["Cash", "Card"]
 
 const AddExpense = () => {
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState("")
+  const { categories, isLoading, refetch } = useCategories()
 
   return (
     <div className="mt-5">
       <form>
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
-            <Label htmlFor="email">Date</Label>
-            <DatePicker widthInput="w-48"/>
+            <Label htmlFor="date">Date</Label>
+            <DatePicker widthInput="w-48" />
           </div>
           <div className="grid gap-2">
-            <Label htmlFor="email">Category</Label>
-            <ComboBoxx items={categories} placholdertext="Choose Category" />
+            <Label htmlFor="category">Category</Label>
+            <ComboBoxx
+              items={categories.map((c) => c.category_name)}
+              placholdertext="Choose Category"
+            />
           </div>
         </div>
         <div className="mt-5 grid gap-2">
