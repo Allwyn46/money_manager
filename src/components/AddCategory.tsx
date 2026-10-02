@@ -13,6 +13,7 @@ import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/toast"
+import { addCategory } from "@/api/transactions"
 
 type AddCategoryProps = {
   open: boolean
@@ -21,16 +22,32 @@ type AddCategoryProps = {
 
 export function AddCategory({ open, onOpenChange }: AddCategoryProps) {
   const [name, setName] = useState("")
+  const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+  const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    setName("")
-    onOpenChange(false)
-    toast.add({
-      title: "Category Added",
-    })
 
-    
+    const trimmed = name.trim()
+    if (!trimmed) return
+
+    try {
+      setIsSubmitting(true)
+      await addCategory(trimmed)
+
+      setName("")
+      onOpenChange(false)
+      toast.add({
+        title: "Category Added",
+      })
+    } catch (error) {
+      console.error(error)
+      toast.add({
+        title: "Failed to add category",
+        description: "Please try again.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (
@@ -62,7 +79,9 @@ export function AddCategory({ open, onOpenChange }: AddCategoryProps) {
                 </Button>
               }
             />
-            <Button type="submit">Save changes</Button>
+            <Button type="submit" disabled={isSubmitting || !name.trim()}>
+              {isSubmitting ? "Saving..." : "Save changes"}
+            </Button>
           </DialogFooter>
         </form>
       </DialogContent>
