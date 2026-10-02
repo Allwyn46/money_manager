@@ -12,6 +12,7 @@ import {
 import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
+import { toast } from "@/components/ui/toast"
 
 type AddCategoryProps = {
   open: boolean
@@ -23,9 +24,13 @@ export function AddCategory({ open, onOpenChange }: AddCategoryProps) {
 
   const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert(`Form Submitted: ${name}`)
     setName("")
     onOpenChange(false)
+    toast.add({
+      title: "Category Added",
+    })
+
+    
   }
 
   return (
