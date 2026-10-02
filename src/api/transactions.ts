@@ -1,17 +1,17 @@
 import axios from "axios"
 
 export const instance = axios.create({
-  baseURL: "https://api.example.com", // replace with your backend URL
+  baseURL: "http://127.0.0.1:8000", // replace with your backend URL
   timeout: 5000,
   headers: { "X-Custom-Header": "foobar" },
 })
 
 export type Category = {
   id: string
-  name: string
+  category_name: string
 }
 
-export const addCategory = async (name: string): Promise<Category> => {
-  const { data } = await instance.post<Category>("/categories", { name })
+export const addCategory = async (category_name: string): Promise<Category> => {
+  const { data } = await instance.post<Category>("/category", { category_name })
   return data
 }
