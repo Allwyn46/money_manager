@@ -15,3 +15,8 @@ export const addCategory = async (category_name: string): Promise<Category> => {
   const { data } = await instance.post<Category>("/category", { category_name })
   return data
 }
+
+export const getCategories = async (): Promise<Category[]> => {
+  const { data } = await instance.get<Category[]>("/category")
+  return data
+}
