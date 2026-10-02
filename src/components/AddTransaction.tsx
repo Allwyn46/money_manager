@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs"
 import AddExpense from "./AddExpense"
@@ -15,6 +16,8 @@ import {
 import { Ellipsis } from "lucide-react"
 
 const AddTransaction = () => {
+  const [categoryOpen, setCategoryOpen] = useState(false)
+
   return (
     <div>
       <Card>
@@ -29,14 +32,19 @@ const AddTransaction = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent>
                 <DropdownMenuGroup>
-                  <AddCategory />
-                  <DropdownMenuItem>Billing</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setCategoryOpen(true)}>
+                    Add Category
+                  </DropdownMenuItem>
+                  <DropdownMenuItem>Add Account</DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
+
+            {/* Rendered OUTSIDE the dropdown so the menu can't capture keystrokes */}
+            <AddCategory open={categoryOpen} onOpenChange={setCategoryOpen} />
           </div>
         </CardHeader>
-        <CardContent className="">
+        <CardContent>
           <Tabs defaultValue="expense">
             <TabsList>
               <TabsTrigger value="expense">Expense</TabsTrigger>

@@ -1,3 +1,4 @@
+import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
   Dialog,
@@ -7,48 +8,59 @@ import {
   DialogFooter,
   DialogHeader,
   DialogTitle,
-  DialogTrigger,
 } from "@/components/ui/dialog"
 import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 
+type AddCategoryProps = {
+  open: boolean
+  onOpenChange: (open: boolean) => void
+}
 
-export function AddCategory() {
+export function AddCategory({ open, onOpenChange }: AddCategoryProps) {
+  const [name, setName] = useState("")
+
+  const formSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+    alert(`Form Submitted: ${name}`)
+    setName("")
+    onOpenChange(false)
+  }
+
   return (
-    <Dialog>
-      <form>
-        <DialogTrigger
-          render={
-            <Button variant="ghost" className="text-start">
-              Add Category
-            </Button>
-          }
-        />
-        <DialogContent className="sm:max-w-sm">
+    <Dialog open={open} onOpenChange={onOpenChange}>
+      <DialogContent className="sm:max-w-sm">
+        <form onSubmit={formSubmit} className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>Edit profile</DialogTitle>
+            <DialogTitle>Add Category</DialogTitle>
             <DialogDescription>
-              Make changes to your profile here. Click save when you&apos;re
-              done.
+              Add category name here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <FieldGroup>
             <Field>
-              <Label htmlFor="name-1">Name</Label>
-              <Input id="name-1" name="name" defaultValue="Pedro Duarte" />
-            </Field>
-            <Field>
-              <Label htmlFor="username-1">Username</Label>
-              <Input id="username-1" name="username" defaultValue="@peduarte" />
+              <Label htmlFor="name-1">Category Name</Label>
+              <Input
+                id="name-1"
+                placeholder="Enter the Category Name"
+                value={name}
+                onChange={(e) => setName(e.target.value)}
+              />
             </Field>
           </FieldGroup>
           <DialogFooter>
-            <DialogClose render={<Button variant="outline">Cancel</Button>} />
+            <DialogClose
+              render={
+                <Button type="button" variant="outline">
+                  Cancel
+                </Button>
+              }
+            />
             <Button type="submit">Save changes</Button>
           </DialogFooter>
-        </DialogContent>
-      </form>
+        </form>
+      </DialogContent>
     </Dialog>
   )
 }
