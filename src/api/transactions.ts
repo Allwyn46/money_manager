@@ -11,6 +11,11 @@ export type Category = {
   category_name: string
 }
 
+export type Account = {
+  id: string
+  account_name: string
+}
+
 export const addCategory = async (category_name: string): Promise<Category> => {
   const { data } = await instance.post<Category>("/category", { category_name })
   return data
@@ -18,5 +23,15 @@ export const addCategory = async (category_name: string): Promise<Category> => {
 
 export const getCategories = async (): Promise<Category[]> => {
   const { data } = await instance.get<Category[]>("/category")
+  return data
+}
+
+export const addAccount = async (account_name: string): Promise<Account> => {
+  const { data } = await instance.post<Account>("/account", { account_name })
+  return data
+}
+
+export const getAccounts = async (): Promise<Account[]> => {
+  const {data} = await instance.get<Account[]>("/account")
   return data
 }
