@@ -5,13 +5,13 @@ import { DatePicker } from "./DatePicker"
 import { ComboBoxx } from "./ComboBoxx"
 import { useState } from "react"
 import { useCategories } from "@/hooks/useCategories"
-
-const Accounts = ["Cash", "Card"]
+import { useAccounts } from "@/hooks/useAccounts"
 
 const AddIncome = () => {
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState("")
   const { categories, isLoading, refetch } = useCategories()
+  const { accounts, isAccLoading, accrefetch } = useAccounts()
 
   return (
     <div className="mt-5">
@@ -53,7 +53,10 @@ const AddIncome = () => {
           <div className="flex items-center">
             <Label htmlFor="account">Account</Label>
           </div>
-          <ComboBoxx items={Accounts} placholdertext="Choose Account" />
+          <ComboBoxx
+            items={accounts.map((a) => a.account_name)}
+            placholdertext="Choose Account"
+          />
         </div>
 
         <div className="mt-5 grid gap-2">

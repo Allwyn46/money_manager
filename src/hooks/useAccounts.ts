@@ -4,11 +4,11 @@ import { getAccounts, type Account } from "@/api/transactions"
 
 export function useAccounts() {
   const [accounts, setAccounts] = useState<Account[]>([])
-  const [isLoading, setIsLoading] = useState(true)
+  const [isAccLoading, setIsAccLoading] = useState(true)
 
-  const refetch = useCallback(async () => {
+  const accrefetch = useCallback(async () => {
     try {
-      setIsLoading(true)
+      setIsAccLoading(true)
       const data = await getAccounts()
       setAccounts(data)
     } catch (error) {
@@ -18,13 +18,13 @@ export function useAccounts() {
         description: "Please try again.",
       })
     } finally {
-      setIsLoading(false)
+      setIsAccLoading(false)
     }
   }, [])
 
   useEffect(() => {
-    refetch()
-  }, [refetch])
+    accrefetch()
+  }, [accrefetch])
 
-  return { accounts, isLoading, refetch }
+  return { accounts, isAccLoading, accrefetch }
 }

@@ -4,12 +4,14 @@ import { Label } from "@/components/ui/label"
 import { DatePicker } from "./DatePicker"
 import { ComboBoxx } from "./ComboBoxx"
 import { useState } from "react"
+import { useAccounts } from "@/hooks/useAccounts"
 
 const Accounts = ["Cash", "Card"]
 
 const AddSelfTransfer = () => {
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState("")
+  const { accounts, isAccLoading, accrefetch } = useAccounts()
 
   return (
     <div className="mt-5">
@@ -17,7 +19,7 @@ const AddSelfTransfer = () => {
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
             <Label htmlFor="email">Date</Label>
-            <DatePicker widthInput="w-[370px]"/>
+            <DatePicker widthInput="w-[370px]" />
           </div>
         </div>
         <div className="mt-5 grid gap-2">
@@ -44,14 +46,20 @@ const AddSelfTransfer = () => {
           <div className="flex items-center">
             <Label htmlFor="account">From</Label>
           </div>
-          <ComboBoxx items={Accounts} placholdertext="Choose Account" />
+          <ComboBoxx
+            items={accounts.map((a) => a.account_name)}
+            placholdertext="Choose Account"
+          />
         </div>
-        
+
         <div className="mt-5 grid gap-2">
           <div className="flex items-center">
             <Label htmlFor="account">To</Label>
           </div>
-          <ComboBoxx items={Accounts} placholdertext="Choose Account" />
+          <ComboBoxx
+            items={accounts.map((a) => a.account_name)}
+            placholdertext="Choose Account"
+          />
         </div>
 
         <div className="mt-5 grid gap-2">
