@@ -7,8 +7,6 @@ import { useState } from "react"
 import { useCategories } from "@/hooks/useCategories"
 import { useAccounts } from "@/hooks/useAccounts"
 
-const Accounts = ["Cash", "Card"]
-
 const AddExpense = () => {
   const [amount, setAmount] = useState(0)
   const [note, setNote] = useState("")
