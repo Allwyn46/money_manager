@@ -14,9 +14,11 @@ import {
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu"
 import { Ellipsis } from "lucide-react"
+import AddAccount from "./AddAccount"
 
 const AddTransaction = () => {
   const [categoryOpen, setCategoryOpen] = useState(false)
+  const [accountOpen, setAccountOpen] = useState(false)
 
   return (
     <div>
@@ -35,13 +37,16 @@ const AddTransaction = () => {
                   <DropdownMenuItem onClick={() => setCategoryOpen(true)}>
                     Add Category
                   </DropdownMenuItem>
-                  <DropdownMenuItem>Add Account</DropdownMenuItem>
+                  <DropdownMenuItem onClick={() => setAccountOpen(true)}>
+                    Add Account
+                  </DropdownMenuItem>
                 </DropdownMenuGroup>
               </DropdownMenuContent>
             </DropdownMenu>
 
             {/* Rendered OUTSIDE the dropdown so the menu can't capture keystrokes */}
             <AddCategory open={categoryOpen} onOpenChange={setCategoryOpen} />
+            <AddAccount open={accountOpen} onOpenChange={setAccountOpen} />
           </div>
         </CardHeader>
         <CardContent>

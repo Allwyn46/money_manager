@@ -1,3 +1,4 @@
+import type { openCloseProps } from "@/lib/types"
 import { useState } from "react"
 import { Button } from "@/components/ui/button"
 import {
@@ -13,10 +14,9 @@ import { Field, FieldGroup } from "@/components/ui/field"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { toast } from "@/components/ui/toast"
-import { addCategory } from "@/api/transactions"
-import type { openCloseProps } from "@/lib/types"
+import { addAccount } from "@/api/transactions"
 
-export function AddCategory({ open, onOpenChange }: openCloseProps) {
+const AddAccount = ({ open, onOpenChange }: openCloseProps) => {
   const [name, setName] = useState("")
   const [isSubmitting, setIsSubmitting] = useState(false)
 
@@ -28,40 +28,39 @@ export function AddCategory({ open, onOpenChange }: openCloseProps) {
 
     try {
       setIsSubmitting(true)
-      await addCategory(trimmed)
-
+      await addAccount(trimmed)
+      
       setName("")
       onOpenChange(false)
       toast.add({
-        title: "Category Added",
+        title: "Account Added",
       })
     } catch (error) {
       console.error(error)
       toast.add({
-        title: "Failed to add category",
+        title: "Failed to add account",
         description: "Please try again.",
       })
     } finally {
       setIsSubmitting(false)
     }
   }
-
   return (
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-sm">
         <form onSubmit={formSubmit} className="grid gap-4">
           <DialogHeader>
-            <DialogTitle>Add Category</DialogTitle>
+            <DialogTitle>Add Account</DialogTitle>
             <DialogDescription>
-              Add category name here. Click save when you&apos;re done.
+              Add account name here. Click save when you&apos;re done.
             </DialogDescription>
           </DialogHeader>
           <FieldGroup>
             <Field>
-              <Label htmlFor="name-1">Category Name</Label>
+              <Label htmlFor="name-1">Account Name</Label>
               <Input
                 id="name-1"
-                placeholder="Enter the Category Name"
+                placeholder="Enter the Account Name"
                 value={name}
                 onChange={(e) => setName(e.target.value)}
               />
@@ -84,3 +83,5 @@ export function AddCategory({ open, onOpenChange }: openCloseProps) {
     </Dialog>
   )
 }
+
+export default AddAccount
