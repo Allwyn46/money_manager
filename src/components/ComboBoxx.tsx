@@ -10,6 +10,8 @@ import {
 type ComboboxParams = {
   items: string[]
   placholdertext: string
+  value: string // new
+  onChange: (value: string) => void // new
 }
 
 export function ComboBoxx({ items, placholdertext }: ComboboxParams) {
