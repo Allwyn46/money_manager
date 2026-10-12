@@ -6,12 +6,38 @@ import { ComboBoxx } from "./ComboBoxx"
 import { useState } from "react"
 import { useCategories } from "@/hooks/useCategories"
 import { useAccounts } from "@/hooks/useAccounts"
+import { useForm } from "react-hook-form"
+import { toast } from "./ui/toast"
+import type { expenseFormFields } from "@/lib/types"
 
 const AddExpense = () => {
   const [amount, setAmount] = useState(0)
-  const [note, setNote] = useState("")
+
+  const { register } = useForm<expenseFormFields>()
+  const { onChange: rhfOnChange, ...amountField } = register("amount")
+
   const { categories, isLoading, refetch } = useCategories()
   const { accounts, isAccLoading, accrefetch } = useAccounts()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+
+  const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault()
+
+    try {
+      setIsSubmitting(true)
+      toast.add({
+        title: "Category Added",
+      })
+    } catch (error) {
+      console.error(error)
+      toast.add({
+        title: "Failed to add Expense",
+        description: "Please try again.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
+  }
 
   return (
     <div className="mt-5">
@@ -19,13 +45,14 @@ const AddExpense = () => {
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
-            <DatePicker widthInput="w-48" />
+            <DatePicker widthInput="w-48" {...register("date")} />
           </div>
           <div className="grid gap-2">
             <Label htmlFor="category">Category</Label>
             <ComboBoxx
               items={categories.map((c) => c.category_name)}
               placholdertext="Choose Category"
+              {...register("category")}
             />
           </div>
         </div>
@@ -42,9 +69,12 @@ const AddExpense = () => {
             required
             className="py-4"
             value={amount}
+            {...amountField}
             onChange={(e) => {
-              const value = Number(e.target.value.replace(/[^0-9]/g, ""))
-              setAmount(value)
+              const cleaned = e.target.value.replace(/[^0-9]/g, "")
+              e.target.value = cleaned // so react-hook-form receives the cleaned value
+              setAmount(Number(cleaned))
+              rhfOnChange(e)
             }}
           />
         </div>
@@ -56,6 +86,7 @@ const AddExpense = () => {
           <ComboBoxx
             items={accounts.map((a) => a.account_name)}
             placholdertext="Choose Account"
+            {...register("account")}
           />
         </div>
 
@@ -69,10 +100,7 @@ const AddExpense = () => {
             type="text"
             required
             className="py-4"
-            value={note}
-            onChange={(e) => {
-              setNote(e.target.value)
-            }}
+            {...register("note")}
           />
         </div>
 
