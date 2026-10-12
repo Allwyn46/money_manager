@@ -6,42 +6,42 @@ import { ComboBoxx } from "./ComboBoxx"
 import { useState } from "react"
 import { useCategories } from "@/hooks/useCategories"
 import { useAccounts } from "@/hooks/useAccounts"
-import { useForm } from "react-hook-form"
+import { useForm, type SubmitHandler } from "react-hook-form"
 import { toast } from "./ui/toast"
 import type { expenseFormFields } from "@/lib/types"
 
 const AddExpense = () => {
   const [amount, setAmount] = useState(0)
 
-  const { register } = useForm<expenseFormFields>()
+  const { register, handleSubmit } = useForm<expenseFormFields>()
   const { onChange: rhfOnChange, ...amountField } = register("amount")
 
   const { categories, isLoading, refetch } = useCategories()
   const { accounts, isAccLoading, accrefetch } = useAccounts()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const formSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
-    e.preventDefault()
+  const formSubmit: SubmitHandler<expenseFormFields> = async (data) => {
+    console.log(data)
 
-    try {
-      setIsSubmitting(true)
-      toast.add({
-        title: "Category Added",
-      })
-    } catch (error) {
-      console.error(error)
-      toast.add({
-        title: "Failed to add Expense",
-        description: "Please try again.",
-      })
-    } finally {
-      setIsSubmitting(false)
-    }
+    // try {
+    //   setIsSubmitting(true)
+    //   toast.add({
+    //     title: "Category Added",
+    //   })
+    // } catch (error) {
+    //   console.error(error)
+    //   toast.add({
+    //     title: "Failed to add Expense",
+    //     description: "Please try again.",
+    //   })
+    // } finally {
+    //   setIsSubmitting(false)
+    // }
   }
 
   return (
     <div className="mt-5">
-      <form>
+      <form onSubmit={handleSubmit(formSubmit)}>
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
