@@ -9,13 +9,14 @@ import { useAccounts } from "@/hooks/useAccounts"
 import { useForm, Controller, type SubmitHandler } from "react-hook-form"
 import { toast } from "./ui/toast"
 import type { expenseFormFields } from "@/lib/types"
+import { addExpense } from "@/api/transactions"
+import axios from "axios"
 
 const AddExpense = () => {
   const {
     register,
     handleSubmit,
     control,
-    watch,
     formState: { errors },
   } = useForm<expenseFormFields>({
     defaultValues: {
@@ -35,20 +36,24 @@ const AddExpense = () => {
   const { accounts } = useAccounts()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  // TEMP: remove once confirmed
-  console.log("form values:", watch())
-
   const formSubmit: SubmitHandler<expenseFormFields> = async (data) => {
-    console.log(data)
-    // try {
-    //   setIsSubmitting(true)
-    //   toast.add({ title: "Expense Added" })
-    // } catch (error) {
-    //   console.error(error)
-    //   toast.add({ title: "Failed to add Expense", description: "Please try again." })
-    // } finally {
-    //   setIsSubmitting(false)
-    // }
+    try {
+      setIsSubmitting(true)
+      await addExpense(data)
+      toast.add({ title: "Expense Added" })
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(JSON.stringify(error.response?.data?.detail, null, 2))
+      } else {
+        console.error(error)
+      }
+      toast.add({
+        title: "Failed to add Expense",
+        description: "Please try again.",
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   return (

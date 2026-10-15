@@ -1,3 +1,4 @@
+import type { expenseFormFields } from "@/lib/types"
 import axios from "axios"
 
 export const instance = axios.create({
@@ -46,18 +47,8 @@ export const getAccounts = async (): Promise<Account[]> => {
 }
 
 export const addExpense = async (
-  date: string,
-  category: string,
-  amount: number,
-  account: string,
-  note: string
+  payload: expenseFormFields
 ): Promise<Expense> => {
-  const { data } = await instance.post<Expense>("/account", {
-    date,
-    category,
-    amount,
-    account,
-    note,
-  })
+  const { data } = await instance.post<Expense>("/expense", payload)
   return data
 }
