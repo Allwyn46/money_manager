@@ -1,5 +1,5 @@
 import * as React from "react"
-import { format } from "date-fns"
+import { format, parseISO } from "date-fns"
 import { ChevronDownIcon } from "lucide-react"
 
 import { Button } from "@/components/ui/button"
@@ -12,15 +12,18 @@ import {
 
 type datePickerParams = {
   widthInput: string
-  value: string // new, e.g. "2026-10-12"
-  onChange: (value: string) => void // new
+  value: string // e.g. "2026-10-15"
+  onChange: (value: string) => void
 }
 
-export function DatePicker({ widthInput }: datePickerParams) {
-  const [date, setDate] = React.useState<Date>()
+export function DatePicker({ widthInput, value, onChange }: datePickerParams) {
+  const [open, setOpen] = React.useState(false)
+
+  // Form value is a "yyyy-MM-dd" string; the Calendar needs a Date
+  const date = value ? parseISO(value) : undefined
 
   return (
-    <Popover>
+    <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger
         render={
           <Button
@@ -37,7 +40,10 @@ export function DatePicker({ widthInput }: datePickerParams) {
         <Calendar
           mode="single"
           selected={date}
-          onSelect={setDate}
+          onSelect={(d) => {
+            onChange(d ? format(d, "yyyy-MM-dd") : "")
+            setOpen(false)
+          }}
           defaultMonth={date}
         />
       </PopoverContent>
