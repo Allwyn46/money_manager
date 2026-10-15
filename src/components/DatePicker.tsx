@@ -12,6 +12,8 @@ import {
 
 type datePickerParams = {
   widthInput: string
+  value: string // new, e.g. "2026-10-12"
+  onChange: (value: string) => void // new
 }
 
 export function DatePicker({ widthInput }: datePickerParams) {

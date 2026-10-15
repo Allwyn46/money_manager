@@ -11,7 +11,13 @@ import { toast } from "./ui/toast"
 import type { expenseFormFields } from "@/lib/types"
 
 const AddExpense = () => {
-  const { register, handleSubmit, control } = useForm<expenseFormFields>({
+  const {
+    register,
+    handleSubmit,
+    control,
+    watch,
+    formState: { errors },
+  } = useForm<expenseFormFields>({
     defaultValues: {
       date: "",
       category: "",
@@ -19,28 +25,27 @@ const AddExpense = () => {
       note: "",
     },
   })
+
   const { onChange: rhfOnChange, ...amountField } = register("amount", {
     valueAsNumber: true,
+    required: "Amount is required",
   })
 
-  const { categories, isLoading, refetch } = useCategories()
-  const { accounts, isAccLoading, accrefetch } = useAccounts()
+  const { categories } = useCategories()
+  const { accounts } = useAccounts()
   const [isSubmitting, setIsSubmitting] = useState(false)
 
-  const formSubmit: SubmitHandler<expenseFormFields> = async (data) => {
-    console.log(data) // amount is now a number
+  // TEMP: remove once confirmed
+  console.log("form values:", watch())
 
+  const formSubmit: SubmitHandler<expenseFormFields> = async (data) => {
+    console.log(data)
     // try {
     //   setIsSubmitting(true)
-    //   toast.add({
-    //     title: "Expense Added",
-    //   })
+    //   toast.add({ title: "Expense Added" })
     // } catch (error) {
     //   console.error(error)
-    //   toast.add({
-    //     title: "Failed to add Expense",
-    //     description: "Please try again.",
-    //   })
+    //   toast.add({ title: "Failed to add Expense", description: "Please try again." })
     // } finally {
     //   setIsSubmitting(false)
     // }
@@ -48,14 +53,18 @@ const AddExpense = () => {
 
   return (
     <div className="mt-5">
-      <form onSubmit={handleSubmit(formSubmit)}>
+      <form
+        onSubmit={handleSubmit(formSubmit, (errs) =>
+          console.log("validation errors:", errs)
+        )}
+      >
         <div className="flex items-center justify-between gap-6">
           <div className="grid gap-2">
             <Label htmlFor="date">Date</Label>
             <Controller
               name="date"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: "Date is required" }}
               render={({ field }) => (
                 <DatePicker
                   widthInput="w-48"
@@ -64,13 +73,17 @@ const AddExpense = () => {
                 />
               )}
             />
+            {errors.date && (
+              <p className="text-sm text-red-500">{errors.date.message}</p>
+            )}
           </div>
+
           <div className="grid gap-2">
             <Label htmlFor="category">Category</Label>
             <Controller
               name="category"
               control={control}
-              rules={{ required: true }}
+              rules={{ required: "Category is required" }}
               render={({ field }) => (
                 <ComboBoxx
                   items={categories.map((c) => c.category_name)}
@@ -80,20 +93,20 @@ const AddExpense = () => {
                 />
               )}
             />
+            {errors.category && (
+              <p className="text-sm text-red-500">{errors.category.message}</p>
+            )}
           </div>
         </div>
 
         <div className="mt-5 grid gap-2">
-          <div className="flex items-center">
-            <Label htmlFor="amount">Amount</Label>
-          </div>
+          <Label htmlFor="amount">Amount</Label>
           <Input
             id="amount"
             placeholder="Enter Amount"
             type="text"
             inputMode="numeric"
             pattern="[0-9]*"
-            required
             className="py-4"
             {...amountField}
             onChange={(e) => {
@@ -101,16 +114,17 @@ const AddExpense = () => {
               rhfOnChange(e)
             }}
           />
+          {errors.amount && (
+            <p className="text-sm text-red-500">{errors.amount.message}</p>
+          )}
         </div>
 
         <div className="mt-5 grid gap-2">
-          <div className="flex items-center">
-            <Label htmlFor="account">Account</Label>
-          </div>
+          <Label htmlFor="account">Account</Label>
           <Controller
             name="account"
             control={control}
-            rules={{ required: true }}
+            rules={{ required: "Account is required" }}
             render={({ field }) => (
               <ComboBoxx
                 items={accounts.map((a) => a.account_name)}
@@ -120,17 +134,17 @@ const AddExpense = () => {
               />
             )}
           />
+          {errors.account && (
+            <p className="text-sm text-red-500">{errors.account.message}</p>
+          )}
         </div>
 
         <div className="mt-5 grid gap-2">
-          <div className="flex items-center">
-            <Label htmlFor="note">Note</Label>
-          </div>
+          <Label htmlFor="note">Note</Label>
           <Input
             id="note"
             placeholder="Note"
             type="text"
-            required
             className="py-4"
             {...register("note")}
           />
