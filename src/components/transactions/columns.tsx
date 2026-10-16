@@ -11,8 +11,8 @@ export type Payment = {
   amount: number
   category: string
   account: string
-  status: "pending" | "processing" | "success" | "failed"
-  email: string
+  // status: "pending" | "processing" | "success" | "failed"
+  // email: string
 }
 
 // Use `accessor` for data columns and `display` for columns without one.

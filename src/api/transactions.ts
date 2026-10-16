@@ -1,4 +1,10 @@
-import type { Account, Category, Expense, expenseFormFields } from "@/lib/types"
+import type {
+  Account,
+  Category,
+  Expense,
+  expenseFormFields,
+  Transaction,
+} from "@/lib/types"
 import axios from "axios"
 
 export const instance = axios.create({
@@ -6,8 +12,6 @@ export const instance = axios.create({
   timeout: 5000,
   headers: { "X-Custom-Header": "foobar" },
 })
-
-
 
 export const addCategory = async (category_name: string): Promise<Category> => {
   const { data } = await instance.post<Category>("/category", { category_name })
@@ -36,7 +40,7 @@ export const addExpense = async (
   return data
 }
 
-export const getTransactions = async (): Promise<Category[]> => {
-  const { data } = await instance.get<Category[]>("/category")
+export const getTransactions = async (): Promise<Transaction[]> => {
+  const { data } = await instance.get<Transaction[]>("/transactions")
   return data
 }
